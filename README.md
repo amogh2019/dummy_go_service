@@ -25,7 +25,7 @@ Dummy Go Microservice  // Go // gRPC // protobuf
                 - language interoperatablity
 
 - why gRPC?
-    - building api is hard, as we saw above, we need to address all those issue
+    - building api is hard, as we saw above, we need to address all those issues
     - Can we not just focus on data? and let the framework handle those concerns/charters
         - gRPC is that framework for interservice communication
         - build over http2
