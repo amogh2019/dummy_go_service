@@ -27,7 +27,7 @@ Dummy Go Microservice  // Go // gRPC // protobuf
 - why gRPC?
     - building api is hard, as we saw above, we need to address all those issues
     - Can we not just focus on data? and let the framework handle those concerns/charters
-        - gRPC is that framework for interservice communication
+        - gRPC is that framework for interservice communication / service client comm // basically communication with our service
         - build over http2
         - open source // cloud native computation foundation like docker kuberenetes
         - mainly focus on low latency
