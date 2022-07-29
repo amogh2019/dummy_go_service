@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"reflect"
 
 	gpl3 "github.com/amogh2019/dummy_go_service/greet/proto/practice/level3"
 	"google.golang.org/protobuf/proto"
@@ -81,6 +82,21 @@ func readAndCreateMessageFromFile(fileName string) *gpl3.SampleMessage {
 	return &msg
 }
 
+func doToJson(pb proto.Message) string {
+	k := toJSON(pb)
+	fmt.Println("to json : \n", k)
+	fmt.Println("")
+	return k
+}
+
+func doFromJson(jsonStr string, typeOfMsgWeWant reflect.Type) proto.Message {
+
+	msg := reflect.New(typeOfMsgWeWant).Interface().(proto.Message) /// create an instance for the type we want // parse into the generic interface to be passed in child method
+	fromJSON(jsonStr, msg)
+
+	return msg
+}
+
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
@@ -92,4 +108,12 @@ func main() {
 	fileName := "greet/server/practice/messageInSerializedForm.bin"
 	writeToFile(fileName, getSample1())
 	fmt.Println(readAndCreateMessageFromFile(fileName))
+	str1 := doToJson(getSample1())
+	fmt.Println(doFromJson(str1, reflect.TypeOf(gpl3.SampleMessage{})))
+	str1 = doToJson(getComplex())
+	fmt.Println(doFromJson(str1, reflect.TypeOf(gpl3.ComplexMessage{})))
 }
+
+// cmd to run is below // since we have multiple files contributing to the same package // run must include all the files we want to run
+// go run greet/server/practice/*.go
+// we usually do // go run . in the home directory // if its the module and file having main package is also present at root
