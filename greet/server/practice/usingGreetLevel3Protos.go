@@ -26,7 +26,14 @@ func getComplex() *gpl3.ComplexMessage {
 	}
 }
 
+func getSample2() *gpl3.SampleMessage2 {
+	return &gpl3.SampleMessage2{
+		EyeColor: gpl3.EyeColor_EYECOLOR_BLUE,
+	}
+}
+
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
+	fmt.Println(getSample2())
 }
