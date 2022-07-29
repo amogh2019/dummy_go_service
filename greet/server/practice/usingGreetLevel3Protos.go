@@ -112,6 +112,10 @@ func main() {
 	fmt.Println(doFromJson(str1, reflect.TypeOf(gpl3.SampleMessage{})))
 	str1 = doToJson(getComplex())
 	fmt.Println(doFromJson(str1, reflect.TypeOf(gpl3.ComplexMessage{})))
+	fmt.Println(toJSONWithCustomMapper(getSample1()))
+	msg := &(gpl3.SampleMessage{})
+	fromJSONWithCustomMapper(`{"id":20,"isActive":true,"name":"Dummy21","someunknownfield":"somevalue"}`, msg)
+	fmt.Println(msg)
 }
 
 // cmd to run is below // since we have multiple files contributing to the same package // run must include all the files we want to run
