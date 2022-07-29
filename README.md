@@ -52,7 +52,38 @@ Dummy Go Microservice  // Go // gRPC // protobuf
 
 
 
-- 
+- types of gRPC API
+    - unary // single request message // single response message
+    - server streaming // single request message // multiple response message
+    - client streaming // multiple request message // single response message
+    - bidirectional // multiple request message // multiple response message
+        -   Example 
+        ```
+        service GreetService {
+            //UNARY
+            rpc Greet(GreetRequest) return (GreetResponse){};
+             //SERVER STREAMING
+            rpc GreetManyTimes(GreetRequest) return (stream GreetResponse){};
+             //CLIENT STREAMING
+            rpc LongGreet(stream GreetRequest) return (GreetResponse){};
+             //BIDIRECTIONAL STREAMING
+            rpc GreetEveryone(stream GreetRequest) return (stream GreetResponse){};
+        }
+    - 
+
+- gRPC vs REST
+
+|   grpc    |   rest   |
+|-----------|----------|
+|protocal buffers(strict schema(types and fields))| JSON free schema |
+|   http2|  http1|
+|   streaming |   unary |
+|   bidirectional |   client -> server |
+|   free design| GET POST ... etc actions|
+
+
+
+
         
 
 
