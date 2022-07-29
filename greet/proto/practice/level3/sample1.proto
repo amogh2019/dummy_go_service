@@ -13,6 +13,14 @@ message SampleMessage{
     repeated string alt_names = 4;
 }
 
+
+
+message ComplexMessage{
+    SampleMessage single = 1;
+    repeated SampleMessage multiple = 2;
+}
+
+
 /*
 to generate  go file
 call this from directory root */

@@ -15,6 +15,18 @@ func getSample1() *gpl3.SampleMessage {
 	}
 }
 
+func getComplex() *gpl3.ComplexMessage {
+	return &gpl3.ComplexMessage{
+		Single: getSample1(),
+		Multiple: []*gpl3.SampleMessage{
+			{Name: "abc"},
+			{Name: "pqr"},
+			getSample1(),
+		},
+	}
+}
+
 func main() {
 	fmt.Println(getSample1())
+	fmt.Println(getComplex())
 }
