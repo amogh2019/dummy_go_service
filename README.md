@@ -82,6 +82,19 @@ Dummy Go Microservice  // Go // gRPC // protobuf
 |   free design| GET POST ... etc actions|
 
 
+- protobuf vs json
+    - both are data schemes // data schema // ways we use to represent data // to send in  communication
+    - json has like it own structure // send to any srver(on any language) // it will parse and read the message
+    - payload is large since we are sending structure everytime
+    - everyone's parsing // serializing and deserialzing // may not be optimal
+    - hence comes protobuf
+        - we fix a schema and tell to all clients // fix fields numbering(tags) // fix their types
+        - along with structure // we also provide some sdks/libraries some api/code by ourserlves // for them to serialize and deserialize // they the clients dont have to worry about this
+        - hence the message that we send is small in size // also not humanreadable, unless you decode it yourself
+        - dont worry about changing schemes / changing fields  // backward compatbality is also handled by the api that it provides
+        - since we have schema // that we share with clients // we can also write comments/documentation in the schemas that we share // unlike in json where documentation is external (and so can be obsolete)
+
+
 
 
         
