@@ -48,6 +48,15 @@ func getOneOfs(result interface{}) {
 	}
 }
 
+func getCountry() *gpl3.Country {
+	return &gpl3.Country{
+		StateWiseCityList: map[string]*gpl3.CityList{
+			"ka": {Cities: []string{"blr", "mys"}},
+			"mh": {Cities: []string{"mum", "pun"}},
+		},
+	}
+}
+
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
@@ -55,4 +64,5 @@ func main() {
 	fmt.Println(getSample2WithOrdinalValue())
 	getOneOfs(&gpl3.Result_Id{Id: 332})
 	getOneOfs(&gpl3.Result_Message{Message: "done!"})
+	fmt.Println(getCountry())
 }
