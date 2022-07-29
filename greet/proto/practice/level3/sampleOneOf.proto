@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+
+package greet.practice.level3;      // proto's package proto entity management
+
+
+option go_package = "github.com/amogh2019/dummy_go_service/greet/proto/practice/level3";
+
+
+
+message Result{
+    oneof result{
+        string message = 1;
+        uint32 id = 2;
+    }
+}
+
+
+
+
+
+/*
+to generate  go file
+call this from directory root */
+//protoc -Igreet/proto/practice/level3 --go_opt=module=github.com/amogh2019/dummy_go_service --go_out=. greet/proto/practice/level3/*.proto
+

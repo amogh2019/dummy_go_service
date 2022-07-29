@@ -37,9 +37,22 @@ func getSample2WithOrdinalValue() *gpl3.SampleMessage2 {
 	}
 }
 
+func getOneOfs(result interface{}) {
+	switch msgType := result.(type) {
+	case *gpl3.Result_Id:
+		fmt.Println("result is of type ID and the value is ", result.(*gpl3.Result_Id).Id)
+	case *gpl3.Result_Message:
+		fmt.Println("result is of type ID and the value is ", result.(*gpl3.Result_Message).Message)
+	default:
+		fmt.Println("message type cannot be infered", msgType)
+	}
+}
+
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
 	fmt.Println(getSample2())
 	fmt.Println(getSample2WithOrdinalValue())
+	getOneOfs(&gpl3.Result_Id{Id: 332})
+	getOneOfs(&gpl3.Result_Message{Message: "done!"})
 }
