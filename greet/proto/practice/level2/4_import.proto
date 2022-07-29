@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "greet/proto/practice/level2/1_same_level_message.proto";
+import "greet/proto/practice/level2/3_packaged.proto";
+
+message Msg5{
+    Msg2 one = 1;
+    my.package.Msg4 four = 2;
+}

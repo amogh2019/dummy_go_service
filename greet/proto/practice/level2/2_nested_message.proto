@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+
+message Msg3{
+
+
+    message Msg4{
+
+    }
+
+    enum Enum2{
+        ENUM2_UNSPECIFIED = 0;
+        //...
+    }
+
+    Msg4 four = 1;
+    Enum2 enum2 = 2;
+}

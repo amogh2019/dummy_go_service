@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+
+/*
+    Message to represent a location
+
+*/
+message Person{
+    string name = 1;
+    repeated string middle_names = 2;
+    string last_name = 3;
+}
+
+
+
+

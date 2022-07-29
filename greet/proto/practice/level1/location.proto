@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+
+/*
+    Message to represent a location
+
+*/
+message Location{
+    double lat = 1;
+    double long = 2;
+}
+
+
+
+

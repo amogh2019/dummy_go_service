@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+
+
+/*
+    Message to represent a location
+
+*/
+message Money{
+    string currency_code = 1;
+    int64 integral_amount = 2;
+    int64 decimal_amount = 3;
+
+}
+
+
+
+
