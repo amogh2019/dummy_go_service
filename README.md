@@ -33,6 +33,29 @@ Dummy Go Microservice  // Go // gRPC // protobuf
         - mainly focus on low latency
         - supports streaming of data
 
+- why http2 is better?
+    - scene
+        - consider a save where a webpage has to load // it has three resources to get // image css script
+        - usually // browser will make three http calls to get these three things 
+        - each call opens its own TCP connection
+        - this also sends plaintext headers
+
+    - features
+        - http2 allows TCP connection reusing // long lasting tcp connections
+        - there is server push 
+        - binary headers (defined structure in packet frame, hence doesnt have to parse the header to determine the structure)
+
+    - pros of the features
+        - because of server push and long tcp connection, now we can make just one request and server can respond back with three messages in the same tcp connnection
+        - this also decreases the no. of requests the client makes  // and so the no of tcp conn // hence less traffic
+
+
+
+
+- 
+        
+
+
         
 
 
