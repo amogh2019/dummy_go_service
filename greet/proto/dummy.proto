@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+
+package dummy.package;      // proto's package proto entity management
+
+
+option go_package = "github.com/amogh2019/dummy_go_service/greet/proto";
+
+message DummyMessage{
+    uint32 id = 1;
+    bool is_active = 2;
+    string name = 3;
+    repeated string alt_names = 4;
+}
