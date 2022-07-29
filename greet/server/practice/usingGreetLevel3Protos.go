@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 
 	gpl3 "github.com/amogh2019/dummy_go_service/greet/proto/practice/level3"
+	"google.golang.org/protobuf/proto"
 )
 
 func getSample1() *gpl3.SampleMessage {
@@ -57,6 +60,27 @@ func getCountry() *gpl3.Country {
 	}
 }
 
+func writeToFile(fileName string, message proto.Message) { // every proto message implements this interface
+	msgBytes, err := proto.Marshal(message)
+	if err != nil {
+		log.Fatal("cannot serialize message into bytearray", err)
+	}
+	if err = ioutil.WriteFile(fileName, msgBytes, 0644); err != nil {
+		log.Fatal("err in writing file", err)
+	}
+	fmt.Println("written to file", fileName)
+}
+
+func readAndCreateMessageFromFile(fileName string) *gpl3.SampleMessage {
+	dataBytes, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		log.Fatal("cannot read file", fileName, err)
+	}
+	var msg gpl3.SampleMessage
+	proto.Unmarshal(dataBytes, &msg)
+	return &msg
+}
+
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
@@ -65,4 +89,7 @@ func main() {
 	getOneOfs(&gpl3.Result_Id{Id: 332})
 	getOneOfs(&gpl3.Result_Message{Message: "done!"})
 	fmt.Println(getCountry())
+	fileName := "greet/server/practice/messageInSerializedForm.bin"
+	writeToFile(fileName, getSample1())
+	fmt.Println(readAndCreateMessageFromFile(fileName))
 }
