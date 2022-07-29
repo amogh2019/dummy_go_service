@@ -31,9 +31,15 @@ func getSample2() *gpl3.SampleMessage2 {
 		EyeColor: gpl3.EyeColor_EYECOLOR_BLUE,
 	}
 }
+func getSample2WithOrdinalValue() *gpl3.SampleMessage2 {
+	return &gpl3.SampleMessage2{
+		EyeColor: 2, // works too // set the enum ordinal value
+	}
+}
 
 func main() {
 	fmt.Println(getSample1())
 	fmt.Println(getComplex())
 	fmt.Println(getSample2())
+	fmt.Println(getSample2WithOrdinalValue())
 }
