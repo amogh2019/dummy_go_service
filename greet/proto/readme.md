@@ -75,7 +75,7 @@ protoc -Igreet/proto --go_opt=module=github.com/amogh2019/dummy_go_service --go_
 
 - thoda dekh ke karna // sirf name changes mein no worries
 - type change for a field mein issues ho skte // backward compatablity mein // pura data might break while deserializtion
-- field ka tag change can also mess things up // since tag is the identifier in the actual binary form // fieldname is just a label
+- field ka tag change can also mess things up // since tag is the identifier (and tag+type is encoded in binary) in the actual binary form // fieldname is just a label
 - tags update kar rahe toh future incremental tag dedo // aur purane ko block kardo
     - use reserved keyword // block tag and fieldname both
 
