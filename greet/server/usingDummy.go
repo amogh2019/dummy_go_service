@@ -8,10 +8,7 @@ import (
 
 func getDummy() *gp.DummyMessage {
 	return &gp.DummyMessage{
-		Id:       22,
-		IsActive: true,
-		Name:     "Dummy11",
-		AltNames: []string{"yolo", "dumm"},
+		Id: 22,
 	}
 }
 
