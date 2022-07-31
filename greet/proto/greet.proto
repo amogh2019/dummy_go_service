@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package="github.com/amogh2019/dummy_go_service/greet/proto";
+
+
+message GreetRequest {
+    string first_name = 1;
+}
+
+message GreetResponse {
+    string result = 1;
+}
+
+
+service GreetService {
+    rpc Greet (GreetRequest) returns (GreetResponse);
+}
+
+
+
+
+// to compile // run from root dir
+// protoc -Igreet/proto --go_opt=module=github.com/amogh2019/dummy_go_service --go_out=. --go-grpc_opt=module=github.com/amogh2019/dummy_go_service --go-grpc_out=.   greet/proto/*.proto
+
+
