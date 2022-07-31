@@ -4,10 +4,15 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
 )
 
 var addr string = "0.0.0.0:50051" // localhost port 500051
+
+type Server struct {
+	pb.GreetServiceServer
+}
 
 func main() {
 	// SETPS TO CREATE SERVER
