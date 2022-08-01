@@ -36,6 +36,7 @@ func main() {
 			break
 		}
 		doGreetToServer(c, input)
+		doGetGreetFromServerManyTimes(c, input)
 		askForInput()
 	}
 	if scanner.Err() != nil {
