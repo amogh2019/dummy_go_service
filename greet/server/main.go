@@ -34,3 +34,6 @@ func main() {
 	}
 
 }
+
+// Do remember to do go run main.go greet.go // i.e. run both the files // else nil pointed // segmentation fault
+// go run greet/server/*.go

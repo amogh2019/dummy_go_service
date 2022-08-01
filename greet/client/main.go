@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -21,5 +22,12 @@ func main() {
 	}
 	defer conn.Close()
 
-	// fmt.Println(conn)
+	c := pb.NewGreetServiceClient(conn)
+
+	doGreetToServer(c)
 }
+
+
+
+// Do remember to do go run main.go greet.go // i.e. run both the files // else nil pointed // segmentation fault
+// go run greet/client/*.go                
