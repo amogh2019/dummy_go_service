@@ -27,6 +27,7 @@ func main() {
 	log.Println("started listening on ", addr)
 
 	s := grpc.NewServer()
+	pb.RegisterGreetServiceServer(s, &Server{}) // registering our server type // which is an implementation of the services in proto
 
 	if err = s.Serve(lis); err != nil {
 		log.Fatal("server cannot serve on listener to address", addr, s, lis, err)
