@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"log"
+	"os"
 
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
@@ -24,10 +27,22 @@ func main() {
 
 	c := pb.NewGreetServiceClient(conn)
 
-	doGreetToServer(c)
+	scanner := bufio.NewScanner(os.Stdin)
+	askForInput()
+	for scanner.Scan() {
+		input := scanner.Text()
+		if input == "exit" {
+			fmt.Println("closing greetservice client")
+			break
+		}
+		doGreetToServer(c, input)
+		askForInput()
+	}
+	if scanner.Err() != nil {
+		log.Fatal("error in taking input from console")
+	}
+
 }
 
-
-
 // Do remember to do go run main.go greet.go // i.e. run both the files // else nil pointed // segmentation fault
-// go run greet/client/*.go                
+// go run greet/client/*.go
