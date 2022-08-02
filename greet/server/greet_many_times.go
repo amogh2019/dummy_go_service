@@ -7,7 +7,7 @@ import (
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 )
 
-func (s *Server) GreetManyTimes(req *pb.GreetRequest, responseStream pb.GreetService_GreetManyTimesServer) error { // this is basically an implementation of the Greet service server we wrote in proto // in our server implementation // // GreetServiceServer is the server API for GreetService service.
+func (s *Server) GreetManyTimes(req *pb.GreetRequest, responseStream pb.GreetService_GreetManyTimesServer) error { // this is basically an implementation of the Greet service server we wrote in proto // in our server implementation // // GreetServiceServer is the server API for GreetService service. //   gprc.pb.go grpc proto generated file for server
 
 	fmt.Println("Greet Many Times function was invoked", req)
 

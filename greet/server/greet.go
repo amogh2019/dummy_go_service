@@ -7,7 +7,7 @@ import (
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 )
 
-func (s *Server) Greet(ctx context.Context, in *pb.GreetRequest) (*pb.GreetResponse, error) { // this is basically an implementation of the Greet service server we wrote in proto // in our server implementation // // GreetServiceServer is the server API for GreetService service.
+func (s *Server) Greet(ctx context.Context, in *pb.GreetRequest) (*pb.GreetResponse, error) { // this is basically an implementation of the Greet service server we wrote in proto // in our server implementation // // GreetServiceServer is the server API for GreetService service //  gprc.pb.go grpc proto generated file for server
 
 	fmt.Println("Greet function was invoked", in)
 
