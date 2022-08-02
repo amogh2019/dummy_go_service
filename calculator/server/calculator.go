@@ -48,3 +48,6 @@ func (serverImpl *CalculatorServiceServerImpl) Operate(ctx context.Context, req 
 	}, nil
 
 }
+
+
+

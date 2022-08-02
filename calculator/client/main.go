@@ -25,29 +25,54 @@ func main() {
 	calculatorServiceClient := pb.NewCalculatorServiceClient(conn)
 
 	scanner := bufio.NewScanner(os.Stdin)
-	askForInput()
-	temp := int64(0)
-	for scanner.Scan() {
-		input := scanner.Text()
-		if input == "exit" {
-			fmt.Println("closing greetservice client")
-			break
-		} else {
-			switch input {
-			case "+":
-				fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_ADD, temp))
-			case "=":
-				fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_UNDEFINED_ACTION, 0))
-			case "*":
-				fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_MULTIPLY, temp))
-			case "AC":
-				fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_CLEAR, temp))
-			default:
-				temp, _ = strconv.ParseInt(input, 10, 64)
-			}
-		}
 
+	askForPress()
+	shouldContd := true
+	for shouldContd && scanner.Scan() {
+		switch scanner.Text() {
+		case "2":
+			askForInputPrimeFactorize()
+			if scanner.Scan() {
+				input := scanner.Text()
+				vall, _ := strconv.ParseInt(input, 10, 32)
+				callPrimeFactorize(calculatorServiceClient, int32(vall))
+				askForPress()
+			} else {
+				shouldContd = false
+			}
+		case "1":
+			askForInput()
+			temp := int64(0)
+			contd := true
+			for contd && scanner.Scan() {
+				input := scanner.Text()
+				switch input {
+				case "exit":
+					fmt.Println("closing calculator")
+					askForPress()
+					contd = false
+				case "+":
+					fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_ADD, temp))
+				case "=":
+					fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_UNDEFINED_ACTION, 0))
+				case "*":
+					fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_MULTIPLY, temp))
+				case "AC":
+					fmt.Println(callCalculate(calculatorServiceClient, pb.CalculatorActions_CLEAR, temp))
+				default:
+					temp, _ = strconv.ParseInt(input, 10, 64)
+				}
+			}
+		case "exit":
+			fmt.Println("closing greetservice client")
+			shouldContd = false
+		default:
+			fmt.Println("dhang se daalo!")
+			askForPress()
+
+		}
 	}
+
 	if scanner.Err() != nil {
 		log.Fatal("error in taking input from console")
 	}

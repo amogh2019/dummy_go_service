@@ -24,7 +24,17 @@ message CalculatorResponse {
     int64 resultantValue = 1;
 }
 
+message PrimeFactorizationRequeset {
+    int32 number = 1;
+}
+
+message PrimeFactorizationResponse {
+    int32 factor = 1;
+}
+
 
 service CalculatorService {
     rpc operate(CalculatorRequest) returns (CalculatorResponse);
+
+    rpc primeFactorize(PrimeFactorizationRequeset) returns (stream PrimeFactorizationResponse);
 }

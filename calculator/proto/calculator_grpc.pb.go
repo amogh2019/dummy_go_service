@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CalculatorServiceClient interface {
 	Operate(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
+	PrimeFactorize(ctx context.Context, in *PrimeFactorizationRequeset, opts ...grpc.CallOption) (CalculatorService_PrimeFactorizeClient, error)
 }
 
 type calculatorServiceClient struct {
@@ -42,11 +43,44 @@ func (c *calculatorServiceClient) Operate(ctx context.Context, in *CalculatorReq
 	return out, nil
 }
 
+func (c *calculatorServiceClient) PrimeFactorize(ctx context.Context, in *PrimeFactorizationRequeset, opts ...grpc.CallOption) (CalculatorService_PrimeFactorizeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[0], "/calculator.dummy.CalculatorService/primeFactorize", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &calculatorServicePrimeFactorizeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type CalculatorService_PrimeFactorizeClient interface {
+	Recv() (*PrimeFactorizationResponse, error)
+	grpc.ClientStream
+}
+
+type calculatorServicePrimeFactorizeClient struct {
+	grpc.ClientStream
+}
+
+func (x *calculatorServicePrimeFactorizeClient) Recv() (*PrimeFactorizationResponse, error) {
+	m := new(PrimeFactorizationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // CalculatorServiceServer is the server API for CalculatorService service.
 // All implementations must embed UnimplementedCalculatorServiceServer
 // for forward compatibility
 type CalculatorServiceServer interface {
 	Operate(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
+	PrimeFactorize(*PrimeFactorizationRequeset, CalculatorService_PrimeFactorizeServer) error
 	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
@@ -56,6 +90,9 @@ type UnimplementedCalculatorServiceServer struct {
 
 func (UnimplementedCalculatorServiceServer) Operate(context.Context, *CalculatorRequest) (*CalculatorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Operate not implemented")
+}
+func (UnimplementedCalculatorServiceServer) PrimeFactorize(*PrimeFactorizationRequeset, CalculatorService_PrimeFactorizeServer) error {
+	return status.Errorf(codes.Unimplemented, "method PrimeFactorize not implemented")
 }
 func (UnimplementedCalculatorServiceServer) mustEmbedUnimplementedCalculatorServiceServer() {}
 
@@ -88,6 +125,27 @@ func _CalculatorService_Operate_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CalculatorService_PrimeFactorize_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PrimeFactorizationRequeset)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CalculatorServiceServer).PrimeFactorize(m, &calculatorServicePrimeFactorizeServer{stream})
+}
+
+type CalculatorService_PrimeFactorizeServer interface {
+	Send(*PrimeFactorizationResponse) error
+	grpc.ServerStream
+}
+
+type calculatorServicePrimeFactorizeServer struct {
+	grpc.ServerStream
+}
+
+func (x *calculatorServicePrimeFactorizeServer) Send(m *PrimeFactorizationResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // CalculatorService_ServiceDesc is the grpc.ServiceDesc for CalculatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +158,12 @@ var CalculatorService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CalculatorService_Operate_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "primeFactorize",
+			Handler:       _CalculatorService_PrimeFactorize_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "calculator.proto",
 }
