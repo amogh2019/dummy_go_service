@@ -64,7 +64,7 @@ func main() {
 				}
 			}
 		case "exit":
-			fmt.Println("closing greetservice client")
+			fmt.Println("closing calculator client")
 			shouldContd = false
 		default:
 			fmt.Println("dhang se daalo!")
