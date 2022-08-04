@@ -96,8 +96,24 @@ Dummy Go Microservice  // Go // gRPC // protobuf
 
 
 
+### how to run?
 
+1. make // this will build the go proto buf files from their proto definitions (if not already present)
+
+2. run the respective service
+    - running calculator
+        - run server 
+            `go run calculator/server/*.go`
+        - run client
+            `go run calculator/client/*.go`
+    - running greet
+        - run server 
+            `go run greet/server/*.go`
+        - run client
+            `go run greet/client/*.go`
         
+
+
 
 
         
