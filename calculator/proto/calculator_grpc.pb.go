@@ -25,6 +25,7 @@ type CalculatorServiceClient interface {
 	Operate(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
 	PrimeFactorize(ctx context.Context, in *PrimeFactorizationRequeset, opts ...grpc.CallOption) (CalculatorService_PrimeFactorizeClient, error)
 	Average(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_AverageClient, error)
+	MaxAmongAll(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_MaxAmongAllClient, error)
 }
 
 type calculatorServiceClient struct {
@@ -110,6 +111,37 @@ func (x *calculatorServiceAverageClient) CloseAndRecv() (*AverageResponse, error
 	return m, nil
 }
 
+func (c *calculatorServiceClient) MaxAmongAll(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_MaxAmongAllClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[2], "/dummy.calculator.CalculatorService/maxAmongAll", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &calculatorServiceMaxAmongAllClient{stream}
+	return x, nil
+}
+
+type CalculatorService_MaxAmongAllClient interface {
+	Send(*MaxAmongAllRequest) error
+	Recv() (*MaxAmongAllResponse, error)
+	grpc.ClientStream
+}
+
+type calculatorServiceMaxAmongAllClient struct {
+	grpc.ClientStream
+}
+
+func (x *calculatorServiceMaxAmongAllClient) Send(m *MaxAmongAllRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *calculatorServiceMaxAmongAllClient) Recv() (*MaxAmongAllResponse, error) {
+	m := new(MaxAmongAllResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // CalculatorServiceServer is the server API for CalculatorService service.
 // All implementations must embed UnimplementedCalculatorServiceServer
 // for forward compatibility
@@ -117,6 +149,7 @@ type CalculatorServiceServer interface {
 	Operate(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
 	PrimeFactorize(*PrimeFactorizationRequeset, CalculatorService_PrimeFactorizeServer) error
 	Average(CalculatorService_AverageServer) error
+	MaxAmongAll(CalculatorService_MaxAmongAllServer) error
 	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
@@ -132,6 +165,9 @@ func (UnimplementedCalculatorServiceServer) PrimeFactorize(*PrimeFactorizationRe
 }
 func (UnimplementedCalculatorServiceServer) Average(CalculatorService_AverageServer) error {
 	return status.Errorf(codes.Unimplemented, "method Average not implemented")
+}
+func (UnimplementedCalculatorServiceServer) MaxAmongAll(CalculatorService_MaxAmongAllServer) error {
+	return status.Errorf(codes.Unimplemented, "method MaxAmongAll not implemented")
 }
 func (UnimplementedCalculatorServiceServer) mustEmbedUnimplementedCalculatorServiceServer() {}
 
@@ -211,6 +247,32 @@ func (x *calculatorServiceAverageServer) Recv() (*AverageRequest, error) {
 	return m, nil
 }
 
+func _CalculatorService_MaxAmongAll_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculatorServiceServer).MaxAmongAll(&calculatorServiceMaxAmongAllServer{stream})
+}
+
+type CalculatorService_MaxAmongAllServer interface {
+	Send(*MaxAmongAllResponse) error
+	Recv() (*MaxAmongAllRequest, error)
+	grpc.ServerStream
+}
+
+type calculatorServiceMaxAmongAllServer struct {
+	grpc.ServerStream
+}
+
+func (x *calculatorServiceMaxAmongAllServer) Send(m *MaxAmongAllResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *calculatorServiceMaxAmongAllServer) Recv() (*MaxAmongAllRequest, error) {
+	m := new(MaxAmongAllRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // CalculatorService_ServiceDesc is the grpc.ServiceDesc for CalculatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -232,6 +294,12 @@ var CalculatorService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "average",
 			Handler:       _CalculatorService_Average_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "maxAmongAll",
+			Handler:       _CalculatorService_MaxAmongAll_Handler,
+			ServerStreams: true,
 			ClientStreams: true,
 		},
 	},

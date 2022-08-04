@@ -31,6 +31,21 @@ func main() {
 	shouldContd := true
 	for shouldContd && scanner.Scan() {
 		switch scanner.Text() {
+		case "4":
+			askForInputToStreamAndFindMax()
+			if scanner.Scan() {
+				input := scanner.Text()
+				strnums := strings.Split(input, ",")
+				nums := make([]int64, len(strnums))
+				for i, strnum := range strnums {
+					vall, _ := strconv.ParseInt(strnum, 10, 64)
+					nums[i] = vall
+				}
+				streamNumbersAndFindMax(calculatorServiceClient, nums)
+				askForPress()
+			} else {
+				shouldContd = false
+			}
 		case "3":
 			askForInputToAveage()
 			if scanner.Scan() {
