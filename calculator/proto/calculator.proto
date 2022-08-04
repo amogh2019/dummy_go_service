@@ -1,11 +1,10 @@
 syntax = "proto3";
 
-
-
 package dummy.calculator;
 
 option go_package="github.com/amogh2019/dummy_go_service/calculator/proto";
 
+import "calculator/proto/average.proto";
 
 enum CalculatorActions {
     UNDEFINED_ACTION = 0;
@@ -38,4 +37,5 @@ service CalculatorService {
 
     rpc primeFactorize(PrimeFactorizationRequeset) returns (stream PrimeFactorizationResponse);
 
+    rpc average(stream dummy.calculator.request.AverageRequest) returns (dummy.calculator.request.AverageResponse);
 }

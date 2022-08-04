@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+package dummy.calculator.request;
+
+option go_package="github.com/amogh2019/dummy_go_service/calculator/proto";
+
+
+message AverageRequest{
+    int32 number = 1;
+}
+
+message AverageResponse{
+    double result = 1;
+}
+

@@ -28,5 +28,5 @@ func callCalculate(clientInstance pb.CalculatorServiceClient, action pb.Calculat
 
 func askForPress() {
 	fmt.Println()
-	fmt.Println("Press: \n 1 for Calculator \n 2 for prime factorization \n exit for terminate")
+	fmt.Println("Press: \n 1 for Calculator \n 2 for prime factorization \n 3 for average \n exit for terminate")
 }

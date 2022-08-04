@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	pb "github.com/amogh2019/dummy_go_service/calculator/proto"
 	"google.golang.org/grpc"
@@ -30,6 +31,21 @@ func main() {
 	shouldContd := true
 	for shouldContd && scanner.Scan() {
 		switch scanner.Text() {
+		case "3":
+			askForInputToAveage()
+			if scanner.Scan() {
+				input := scanner.Text()
+				strnums := strings.Split(input, ",")
+				nums := make([]int32, len(strnums))
+				for i, strnum := range strnums {
+					vall, _ := strconv.ParseInt(strnum, 10, 32)
+					nums[i] = int32(vall)
+				}
+				callDoAverage(calculatorServiceClient, nums)
+				askForPress()
+			} else {
+				shouldContd = false
+			}
 		case "2":
 			askForInputPrimeFactorize()
 			if scanner.Scan() {
