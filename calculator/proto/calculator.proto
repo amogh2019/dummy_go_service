@@ -2,7 +2,7 @@ syntax = "proto3";
 
 
 
-package calculator.dummy;
+package dummy.calculator;
 
 option go_package="github.com/amogh2019/dummy_go_service/calculator/proto";
 
@@ -37,4 +37,5 @@ service CalculatorService {
     rpc operate(CalculatorRequest) returns (CalculatorResponse);
 
     rpc primeFactorize(PrimeFactorizationRequeset) returns (stream PrimeFactorizationResponse);
+
 }
