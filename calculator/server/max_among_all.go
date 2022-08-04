@@ -47,9 +47,12 @@ func (serverImpl *CalculatorServiceServerImpl) MaxAmongAll(bistream pb.Calculato
 
 		if shouldPublishNewMax {
 			log.Println("the updated current max is :", maxNum[0])
-			bistream.Send(&pb.MaxAmongAllResponse{
+			err = bistream.Send(&pb.MaxAmongAllResponse{
 				MaxNum: maxNum[0],
 			})
+			if err != nil {
+				log.Fatal("error in sending data to client", err)
+			}
 		}
 
 	}
