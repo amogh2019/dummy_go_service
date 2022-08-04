@@ -45,7 +45,7 @@ func getGreetingsForEveryone(clientInstance pb.GreetServiceClient, names []strin
 			log.Println("Response from server: ", res.Result)
 		}
 
-		ch <- "done"
+		ch <- "done" // could just close the channel also here, we just need to block main till all responses are received // can also use waitgroups
 	}()
 
 	<-ch
