@@ -40,6 +40,7 @@ func main() {
 		doGreetToServer(c, input)
 		doGetGreetFromServerManyTimes(c, input)
 		doLongGreet(c, strings.Split(input, ","))
+		getGreetingsForEveryone(c, strings.Split(input, ","))
 		askForInput()
 		askForInputForLongGreet()
 	}
