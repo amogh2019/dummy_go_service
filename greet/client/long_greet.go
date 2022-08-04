@@ -21,7 +21,7 @@ func doLongGreet(clientInstance pb.GreetServiceClient, names []string) {
 
 	for _, name := range names {
 		messageSendingStream.Send(&pb.GreetRequest{
-			FirstName: strings.Title(name),
+			FirstName: strings.ToUpper(name),
 		})
 	}
 
