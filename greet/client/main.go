@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
@@ -29,6 +30,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	askForInput()
+	askForInputForLongGreet()
 	for scanner.Scan() {
 		input := scanner.Text()
 		if input == "exit" {
@@ -37,7 +39,9 @@ func main() {
 		}
 		doGreetToServer(c, input)
 		doGetGreetFromServerManyTimes(c, input)
+		doLongGreet(c, strings.Split(input, ","))
 		askForInput()
+		askForInputForLongGreet()
 	}
 	if scanner.Err() != nil {
 		log.Fatal("error in taking input from console")
