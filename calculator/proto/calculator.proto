@@ -5,31 +5,10 @@ package dummy.calculator;
 option go_package="github.com/amogh2019/dummy_go_service/calculator/proto";
 
 import "calculator/proto/average.proto";
-
-enum CalculatorActions {
-    UNDEFINED_ACTION = 0;
-    ADD = 1;
-    MULTIPLY = 2;
-    CLEAR = 3;
-}
-
-message CalculatorRequest{
-    CalculatorActions action = 1;
-    int64 value = 2;
-}
+import "calculator/proto/prime_factorization.proto";
+import "calculator/proto/operate.proto";
 
 
-message CalculatorResponse {
-    int64 resultantValue = 1;
-}
-
-message PrimeFactorizationRequeset {
-    int32 number = 1;
-}
-
-message PrimeFactorizationResponse {
-    int32 factor = 1;
-}
 
 
 service CalculatorService {
