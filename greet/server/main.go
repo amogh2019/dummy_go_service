@@ -6,6 +6,7 @@ import (
 
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 var addr string = "0.0.0.0:50051" // localhost port 500051
@@ -26,7 +27,18 @@ func main() {
 	}
 	log.Println("started listening on ", addr)
 
-	s := grpc.NewServer()
+	opts := []grpc.ServerOption{}
+	tlsEnabled := true
+	if tlsEnabled {
+
+		cred, err := credentials.NewServerTLSFromFile("ssl/server.crt", "ssl/server.pem")
+		if err != nil {
+			log.Fatal("cannot load server cert", err)
+		}
+		opts = append(opts, grpc.Creds(cred))
+	}
+
+	s := grpc.NewServer(opts...)
 	pb.RegisterGreetServiceServer(s, &Server{}) // registering our server type // which is an implementation of the services in proto
 
 	if err = s.Serve(lis); err != nil {

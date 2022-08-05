@@ -10,6 +10,7 @@ import (
 
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
@@ -21,7 +22,19 @@ func main() {
 	// 1. dialup to address
 	// 2. since grpc uses ssl by default, we would need to pass default auth for the time being(till we dont setup some auth)
 
-	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	tlsEnabled := true
+	opts := []grpc.DialOption{}
+	if tlsEnabled {
+		cred, err := credentials.NewClientTLSFromFile("ssl/ca.crt", "")
+		if err != nil {
+			log.Fatal("error in loading CA trust certificate", err)
+		}
+		opts = append(opts, grpc.WithTransportCredentials(cred))
+	} else {
+		opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	}
+
+	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
 		log.Fatal("error in starting dialup", addr, err) // TODO this is not breaking when server is down // check how to write correct code to block this when server is not up
 	}
