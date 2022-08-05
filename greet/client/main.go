@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
@@ -41,8 +42,13 @@ func main() {
 		doGetGreetFromServerManyTimes(c, input)
 		doLongGreet(c, strings.Split(input, ","))
 		getGreetingsForEveryone(c, strings.Split(input, ","))
+
+		doGreetWithDeadline(c, input, 5*time.Second)
+		doGreetWithDeadline(c, input, 2*time.Second)
+
 		askForInput()
 		askForInputForLongGreet()
+
 	}
 	if scanner.Err() != nil {
 		log.Fatal("error in taking input from console")

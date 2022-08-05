@@ -18,7 +18,7 @@ func callSquareRoot(clientInstance pb.CalculatorServiceClient, num int32) {
 		if ok {
 			log.Println("ErrorCode : ", grpcParsedStatus.Code(), " ErrorMsg: ", grpcParsedStatus.Message())
 		} else {
-			log.Println("Error in finding sqaure root from server", err)
+			log.Println("Non-gRPC Error in finding sqaure root from server", err)
 		}
 		return
 	}

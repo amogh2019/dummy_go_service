@@ -25,7 +25,7 @@ type SquareRootRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Number int32 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	Number int32 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"` // we should make this unsigned int // but for demo of validation we are making it signed int
 }
 
 func (x *SquareRootRequest) Reset() {
