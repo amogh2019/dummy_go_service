@@ -31,6 +31,16 @@ func main() {
 	shouldContd := true
 	for shouldContd && scanner.Scan() {
 		switch scanner.Text() {
+		case "5":
+			askForInputSquareRoot()
+			if scanner.Scan() {
+				input := scanner.Text()
+				vall, _ := strconv.ParseInt(input, 10, 32)
+				callSquareRoot(calculatorServiceClient, int32(vall))
+				askForPress()
+			} else {
+				shouldContd = false
+			}
 		case "4":
 			askForInputToStreamAndFindMax()
 			if scanner.Scan() {

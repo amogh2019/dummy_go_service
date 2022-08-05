@@ -8,6 +8,7 @@ import "calculator/proto/average.proto";
 import "calculator/proto/prime_factorization.proto";
 import "calculator/proto/operate.proto";
 import "calculator/proto/max_among_all.proto";
+import "calculator/proto/square_root.proto";
 
 
 
@@ -20,4 +21,6 @@ service CalculatorService {
     rpc average(stream dummy.calculator.request.AverageRequest) returns (dummy.calculator.request.AverageResponse);
 
     rpc maxAmongAll(stream MaxAmongAllRequest) returns (stream MaxAmongAllResponse);
+
+    rpc sqrt(SquareRootRequest) returns (SquareRootResponse);
 }

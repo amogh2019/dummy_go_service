@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+package dummy.calculator;
+
+option go_package="github.com/amogh2019/dummy_go_service/calculator/proto";
+
+
+message SquareRootRequest {
+    int32 number = 1; // we should make this unsigned int // but for demo of validation we are making it signed int
+}
+
+message SquareRootResponse {
+    double root = 1;
+}
+
+
