@@ -116,10 +116,21 @@ Dummy Go Microservice  // Go // gRPC // protobuf
 ### is there a swagger to know api definitions on server?
 an http server doesnt expose the definitions by itself, and so we need swagger to reflect the same.
 similarly in go, we can reflect the grpc services, using reflection
+do we need to define the definition? no, its already defined, in the grpc proto files // we start writing a grpc endpoint by defining the serivce contract in the proto file only
 
 ### what about http clients like postman to check server endpoints?
 try using grpc cli clients // to get service definitions // to make grpc calls to server
-    - evans cli // evans --host hostname --port --reflection repl   ("read–evaluate–print loop")
+- evans cli // evans --host hostname --port --reflection repl   ("read–evaluate–print loop") // this basically gives the package message and services definition
+    - call tls enabled endpoint
+        - evans --tls --host localhost --port 50051 --reflection repl --cacert ssl/ca.crt
+    - call insecure endpoint
+        - evans --host localhost --port 50052 --reflection repl
+
+        - show package
+        - show services
+        - service GreetService
+        - call GreetManyTimes
+            - you can break the streaming input by pressing **ctrl+d**
 
 
 ### notes
