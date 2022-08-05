@@ -113,8 +113,8 @@ Dummy Go Microservice  // Go // gRPC // protobuf
             `go run greet/client/*.go`
         
 
-### Notes
-1. Reference files take from : https://github.com/Clement-Jean/grpc-go-course
+### notes
+1. Reference files taken from : https://github.com/Clement-Jean/grpc-go-course
 
 
 
