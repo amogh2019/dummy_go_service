@@ -7,6 +7,7 @@ import (
 	pb "github.com/amogh2019/dummy_go_service/greet/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/reflection"
 )
 
 var addr string = "0.0.0.0:50051" // localhost port 500051
@@ -40,6 +41,8 @@ func main() {
 
 	s := grpc.NewServer(opts...)
 	pb.RegisterGreetServiceServer(s, &Server{}) // registering our server type // which is an implementation of the services in proto
+
+	reflection.Register(s) // enabling reflection to get service definitions by grpc clients
 
 	if err = s.Serve(lis); err != nil {
 		log.Fatal("server cannot serve on listener to address", addr, s, lis, err)
